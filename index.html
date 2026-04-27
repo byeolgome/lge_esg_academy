@@ -259,6 +259,10 @@
   <script>
     let userName='', currentQ=0, resultType='';
     let scores={F:0,R:0,E:0,I:0,P:0,L:0,C:0,U:0};
+    let userResponses=[]; // [NEW] 사용자의 답변(A/B)을 순서대로 저장할 배열
+    
+    // [NEW] 질문자님의 구글 Apps Script URL을 여기에 붙여넣으세요.
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxK4_mxfdu7Vpy3MMCjaSLPr_3QxM49nyvVz2etl3QIcPDI11m6Wzzs1TYuXOC4PtGtVg/exec';
     const SHARE_URL='https://byeolgome.github.io/lge_esg_academy/'; 
 
     const questions=[
@@ -322,6 +326,7 @@
     function startTest(){
       userName = document.getElementById('nameInput').value.trim();
       scores = {F:0,R:0,E:0,I:0,P:0,L:0,C:0,U:0};
+      userResponses = []; // 테스트 시작 시 답변 배열 초기화
       currentQ = 0;
       showScreen('screen-test');
       renderQ();
@@ -352,6 +357,9 @@
       a.disabled = true; b.disabled = true;
       scores[q.choices[idx].score]++;
       
+      // 사용자가 A(0)를 골랐는지 B(1)를 골랐는지 기록
+      userResponses.push(idx === 0 ? 'A' : 'B');
+      
       setTimeout(() => {
         currentQ++;
         if(currentQ < questions.length){
@@ -366,6 +374,22 @@
     // 결과 표시
     function showResult(){
       resultType = (scores.F>=scores.R?'F':'R')+(scores.E>=scores.I?'E':'I')+(scores.P>=scores.L?'P':'L')+(scores.C>=scores.U?'C':'U');
+      
+      // [NEW] 구글 스프레드시트로 데이터 전송 (비동기)
+      if (SCRIPT_URL && SCRIPT_URL !== '여기에_앱스스크립트_URL을_붙여넣으세요') {
+        const payload = {
+          name: userName,
+          resultType: resultType,
+          answers: userResponses // ['A', 'B', 'A', ...] 배열 형태로 전송 (동적 확장 가능)
+        };
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors', // CORS 에러 방지
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(err => console.log('Data sending error:', err));
+      }
+
       const d = resultData[resultType];
       
       const resultScreen = document.getElementById('screen-result');
