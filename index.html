@@ -49,7 +49,21 @@
     .screen.active{display:block; animation:fadeUp .4s ease-out both}
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
-    /* ── 픽셀 UI 컴포넌트 ── */
+    /* ── 픽셀 로봇 캐릭터 공통 스타일 ── */
+    .robot-char {
+      width: 100px; height: 110px; background: #e0e0e0;
+      border: 4px solid var(--win-border); border-radius: 20px 20px 10px 10px;
+      position: relative; z-index: 2; box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 14px;
+    }
+    .robot-antenna { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); width: 8px; height: 16px; background: #999; border: 3px solid var(--win-border); }
+    .robot-antenna::before { content:''; position:absolute; top:-8px; left:-4px; width:10px; height:10px; background: var(--g1); border: 3px solid var(--win-border); border-radius: 50%; }
+    .robot-face { width: 70px; height: 40px; background: #111; border: 4px solid var(--win-border); border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 12px; }
+    .robot-eye { width: 12px; height: 14px; background: #fff; border-radius: 40%; }
+    .robot-mouth { width: 16px; height: 4px; background: #fff; border-radius: 2px; margin-top: 6px; }
+    .robot-logo { margin-top: 8px; font-size: 10px; font-weight: bold; color: #800020; text-align: center; line-height: 1.1; }
+
+    /* ── 1. 시작 화면 (픽셀 윈도우 UI) ── */
     .pixel-window { border: 4px solid var(--win-border); background: var(--win-bg); box-shadow: 6px 6px 0 rgba(0,0,0,0.15); border-radius: 4px; overflow: hidden; margin-top: 20px; }
     .window-top-bar { background: var(--win-bar); border-bottom: 4px solid var(--win-border); display: flex; align-items: center; padding: 10px 14px; }
     .window-top-bar .dots { display: flex; gap: 6px; margin-right: 14px; }
@@ -62,61 +76,95 @@
     .hero-illustration { position: relative; height: 160px; display: flex; justify-content: center; align-items: center; margin-bottom: 30px; }
     .floating-icon { position: absolute; font-size: 24px; animation: float 3s ease-in-out infinite; color: var(--g1); }
     @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-    .icon-chip1 { top: 20px; left: 20px; font-size: 28px; }
-    .icon-q { top: 10px; right: 50px; font-size: 32px; color: #555; }
-    .icon-bulb { bottom: 30px; left: 40px; font-size: 28px; color: #f5b041; }
-
-    .robot-char {
-      width: 100px; height: 110px; background: #e0e0e0; border: 4px solid var(--win-border); border-radius: 20px 20px 10px 10px;
-      position: relative; z-index: 2; box-shadow: 4px 4px 0 rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 14px;
-    }
-    .robot-antenna { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); width: 8px; height: 16px; background: #999; border: 3px solid var(--win-border); }
-    .robot-antenna::before { content:''; position:absolute; top:-8px; left:-4px; width:10px; height:10px; background: var(--g1); border: 3px solid var(--win-border); border-radius: 50%; }
-    .robot-face { width: 70px; height: 40px; background: #111; border: 4px solid var(--win-border); border-radius: 10px; display: flex; justify-content: center; align-items: center; gap: 12px; }
-    .robot-eye { width: 12px; height: 14px; background: #fff; border-radius: 40%; }
-    .robot-logo { margin-top: 8px; font-size: 10px; font-weight: bold; color: #800020; text-align: center; line-height: 1.1; }
-
+    .icon-chip1 { top: 20px; left: 20px; font-size: 28px; animation-delay: 0s;}
+    .icon-chip2 { bottom: 20px; right: 30px; font-size: 28px; animation-delay: 1s;}
+    .icon-q { top: 10px; right: 50px; font-size: 32px; color: #555; animation-delay: 0.5s;}
+    .icon-bulb { bottom: 30px; left: 40px; font-size: 28px; color: #f5b041; animation-delay: 1.5s;}
     .action-row { display: flex; gap: 16px; justify-content: center; }
     .green-box { flex: 1; height: 54px; background: var(--green-box); border: 4px solid var(--win-border); border-radius: 8px; box-shadow: 4px 4px 0 rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; }
     .name-input { width: 100%; height: 100%; border: none; background: transparent; text-align: center; font-family: var(--fko); font-size: 16px; outline: none; }
     .name-input::placeholder { color: #5a8a5a; }
-    .btn-start { width: 100%; height: 100%; border: none; background: transparent; font-family: var(--fko); font-size: 18px; cursor: pointer; }
+    .btn-start { width: 100%; height: 100%; border: none; background: transparent; font-family: var(--fko); font-size: 18px; cursor: pointer; color: var(--win-border);}
     .btn-start:disabled { color: #888; cursor: not-allowed; }
 
+    /* ── 2~4. 테스트, 로딩 화면 ── */
     .card { background: var(--white); border: 4px solid var(--win-border); border-radius: 8px; box-shadow: 6px 6px 0 rgba(0,0,0,0.15); padding: 30px 20px; }
     .progress-top { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; }
+    .progress-cat { color: var(--g1); }
     .pbar-bg { height: 12px; background: var(--gray4); border: 3px solid var(--win-border); border-radius: 6px; overflow: hidden; }
     .pbar-fill { height: 100%; background: var(--g1); transition: width 0.4s; }
+    .q-num { font-size: 14px; color: var(--gray3); margin: 20px 0 10px; }
     .q-text { font-size: 20px; line-height: 1.4; color: var(--black); margin-bottom: 30px; min-height: 60px; }
-    .choice-btn { width: 100%; padding: 16px; border: 3px solid var(--win-border); border-radius: 8px; background: var(--white); font-family: var(--fko); font-size: 15px; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .choice-btn { width: 100%; padding: 16px; border: 3px solid var(--win-border); border-radius: 8px; background: var(--white); font-family: var(--fko); font-size: 15px; text-align: left; cursor: pointer; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; box-shadow: 4px 4px 0 rgba(0,0,0,0.1); transition: 0.1s;}
     .choice-btn:hover { background: var(--g5); transform: translateY(-2px); box-shadow: 6px 6px 0 rgba(0,0,0,0.15); }
     .cb { width: 28px; height: 28px; border: 3px solid var(--win-border); background: #fff; color: var(--g1); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .loading-card { text-align: center; padding: 60px 20px; }
+    .spinner { font-size: 50px; margin-bottom: 20px; animation: bounce 1s infinite alternate; }
+    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-20px); } }
 
-    /* ── 결과 화면 스타일 ── */
+    /* ── 4. 결과 화면 (픽셀 캐릭터 및 유형별 색상 적용) ── */
     #rRobotIllustration { position: relative; height: 120px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
-    .result-hero { padding: 30px 20px; text-align: center; border-bottom: 4px solid var(--win-border); position: relative; overflow: hidden; color: #fff; }
+    .result-hero { padding: 30px 20px; text-align: center; border-bottom: 4px solid var(--win-border); position: relative; overflow: hidden; }
+    
+    /* 유형별 상단 그라디언트 및 로봇 스타일 */
+    .screen#screen-result.fepc-result .result-hero { background: var(--g1); }
+    .screen#screen-result.felc-result .result-hero { background: var(--g2); }
+    .screen#screen-result.repc-result .result-hero { background: #0b4a2d; }
+    .screen#screen-result.relc-result .result-hero { background: var(--g3); }
+    .screen#screen-result.rilu-result .result-hero { background: var(--g1); } /* 디지털 자연인 */
+
+    .screen#screen-result.fipu-result .result-hero, .screen#screen-result.filu-result .result-hero { background: #c0392b; } /* 빨강 계열 */
+    .screen#screen-result.fepu-result .result-hero, .screen#screen-result.felu-result .result-hero, .screen#screen-result.repu-result .result-hero, .screen#screen-result.relu-result .result-hero, .screen#screen-result.fipc-result .result-hero, .screen#screen-result.filc-result .result-hero, .screen#screen-result.ripc-result .result-hero, .screen#screen-result.rilc-result .result-hero, .screen#screen-result.ripu-result .result-hero { background: var(--orange); } /* 주황 계열 */
+
+    .screen#screen-result { color: #fff; } 
     .rh-code { font-size: 40px; margin-bottom: 10px; text-shadow: 3px 3px 0 rgba(0,0,0,0.3); }
     .rh-name { font-size: 22px; margin-bottom: 10px; }
+    .rh-greet { font-size: 14px; opacity: 0.9; }
     .result-body { padding: 24px 20px; background: #fff; }
     .sec-title { font-size: 16px; color: var(--g1); margin-bottom: 14px; border-bottom: 2px dashed var(--gray4); padding-bottom: 8px; }
-    .desc-box, .env-box { border: 3px solid var(--win-border); border-radius: 6px; padding: 16px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; color: #000; background: var(--g5); }
+    .desc-box, .env-box { border: 3px solid var(--win-border); border-radius: 6px; padding: 16px; margin-bottom: 20px; font-size: 15px; line-height: 1.6; color: #000;}
+    .desc-box { background: var(--g5); }
     .env-box { background: #fff; }
+    .env-level { font-size: 18px; color: var(--g1); margin-bottom: 8px; }
     .tips-list { list-style: none; margin-bottom: 20px; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: #000; }
     .tips-list li { display: flex; gap: 10px; }
     .tn { width: 24px; height: 24px; flex-shrink: 0; background: var(--g1); color: #fff; border: 2px solid var(--win-border); display: flex; align-items: center; justify-content: center; font-size: 12px; }
-    .closing-box { text-align: center; padding: 16px; background: var(--gray4); border: 3px solid var(--win-border); font-size: 14px; margin-bottom: 10px; color: #000; }
-    .watermark { text-align: center; font-size: 12px; color: var(--gray3); padding: 10px 0; }
-    .share-btn-save { width: 100%; padding: 16px; background: var(--g1); color: #fff; border: 4px solid var(--win-border); font-family: var(--fko); font-size: 18px; cursor: pointer; margin-bottom: 12px; }
+    .closing-box { text-align: center; padding: 16px; background: var(--gray4); border: 3px solid var(--win-border); font-size: 14px; margin-bottom: 10px; color: #000;}
+    .watermark { text-align: center; font-size: 12px; color: var(--gray3); padding: 10px 0; color: #888;}
+    
+    .share-btn-save { width: 100%; padding: 16px; background: var(--g1); color: #fff; border: 4px solid var(--win-border); font-family: var(--fko); font-size: 18px; cursor: pointer; box-shadow: 4px 4px 0 rgba(0,0,0,0.2); margin-bottom: 12px; }
     .share-row { display: flex; gap: 10px; margin-bottom: 12px; }
-    .share-row button { flex: 1; padding: 14px; border: 3px solid var(--win-border); font-family: var(--fko); font-size: 14px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #000; background: #e0e0e0; }
+    .share-row button { flex: 1; padding: 14px; border: 3px solid var(--win-border); font-family: var(--fko); font-size: 14px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #000;}
     .share-btn-kakao { background: #fee500; }
+    .share-btn-insta { background: #fff; }
+    .share-btn-copy { background: #e0e0e0; }
+    .retry-btn { width: 100%; padding: 14px; background: transparent; border: 3px dashed var(--win-border); font-family: var(--fko); font-size: 16px; cursor: pointer; color: #000;}
     .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: var(--win-border); color: #fff; padding: 12px 24px; font-size: 14px; border-radius: 4px; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 999; }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(-10px); }
 
-    /* 결과 로봇별 스타일 */
-    .fepc-result .result-hero { background: var(--g1); }
-    .fipu-result .result-hero { background: #c0392b; }
-    .result-robot.rilu { background: var(--g5); border-color: var(--g1); }
+    /* ── 결과 유형별 픽셀 캐릭터 스타일 정의 (CSS Art) ── */
+    /* 초록색 스마트 계열 (C) */
+    .result-robot.fepc::before, .result-robot.felc::before, .result-robot.repc::before, .result-robot.relc::before { content:'🌿'; position: absolute; top: -10px; right: -10px; font-size: 20px; }
+    .result-robot.fepc .robot-antenna::before, .result-robot.felc .robot-antenna::before, .result-robot.repc .robot-antenna::before, .result-robot.relc .robot-antenna::before { background: var(--g3); }
+
+    /* 주황색/빨간색 비효율/무관심 계열 (U) */
+    .result-robot.fepu::before, .result-robot.felu::before, .result-robot.repu::before, .result-robot.relu::before, .result-robot.fipc::before, .result-robot.filc::before, .result-robot.ripc::before, .result-robot.rilc::before, .result-robot.ripu::before { content:'💧'; position: absolute; top: -10px; left: -10px; font-size: 20px; animation: sweat 1s infinite alternate; }
+    @keyframes sweat { from { transform: translateY(0); } to { transform: translateY(5px); } }
+    .result-robot.fepu .robot-logo, .result-robot.felu .robot-logo, .result-robot.repu .robot-logo, .result-robot.relu .robot-logo, .result-robot.fipc .robot-logo, .result-robot.filc .robot-logo, .result-robot.ripc .robot-logo, .result-robot.rilc .robot-logo, .result-robot.ripu .robot-logo { color: var(--orange); }
+
+    /* 특별 유형: 과소비러 (빨강 경고) */
+    .result-robot.fipu::before { content:'🚨'; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); font-size: 30px; animation: blink 0.5s infinite alternate; }
+    @keyframes blink { from { opacity: 0; } to { opacity: 1; } }
+    .result-robot.fipu .robot-face { border-color: #c0392b; background: #5a1a1a; }
+    .result-robot.fipu .robot-logo { color: #fff; }
+
+    /* 특별 유형: 디지털 자연인 (덩굴손 명상) */
+    .result-robot.rilu { background: var(--g5); border-color: var(--g1); color: var(--g1); overflow: visible;}
+    .result-robot.rilu::after { content:'🌸'; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); font-size: 20px; }
+    .result-robot.rilu .robot-face { border-color: var(--g1); background: #b4e0b4; }
+    .result-robot.rilu .robot-eye { background: var(--win-border); }
+    .result-robot.rilu .robot-mouth { background: var(--win-border); width: 20px; border-radius: 10px;}
+    .result-robot.rilu .robot-logo { color: var(--g1); font-weight: bold; }
   </style>
 </head>
 <body>
@@ -130,9 +178,8 @@
       </div>
       <div class="window-body">
         <div class="hero-illustration">
-          <div class="floating-icon icon-chip1">🖧</div>
-          <div class="floating-icon icon-q">❓</div>
-          <div class="floating-icon icon-bulb">💡</div>
+          <div class="floating-icon icon-chip1">🖧</div><div class="floating-icon icon-chip2">🖧</div>
+          <div class="floating-icon icon-q">❓</div><div class="floating-icon icon-bulb">💡</div>
           <div class="robot-char main-robot">
             <div class="robot-antenna"></div>
             <div class="robot-face"><div class="robot-eye"></div><div class="robot-eye"></div></div>
@@ -166,6 +213,7 @@
     <div class="card loading-card">
       <div class="spinner">⏳</div>
       <h2 style="font-size:20px; margin-bottom:10px; color:#000;">결과 분석 중...</h2>
+      <p style="font-size:14px; color:#555;">AI 사용 패턴을 계산하고 있어요</p>
     </div>
   </div>
 
@@ -186,8 +234,8 @@
         </div>
         <div class="sec-title">▶ 환경 영향</div>
         <div class="env-box">
-          <div class="env-level" id="rImpact" style="font-weight:bold; color:var(--g1); margin-bottom:8px;"></div>
-          <div id="rWater" style="font-size:14px; line-height:1.5;"></div>
+          <div class="env-level" id="rImpact"></div>
+          <div id="rWater" style="font-size:14px; line-height:1.5; color:#000;"></div>
           <div id="rDropBar" style="font-size: 24px; margin-top:10px; letter-spacing: 2px;"></div>
         </div>
         <div class="sec-title">▶ 개선 팁</div>
@@ -203,72 +251,135 @@
         <button class="share-btn-insta" onclick="shareInsta()">📷<br>인스타 공유</button>
         <button class="share-btn-copy" onclick="copyLink()">🔗<br>링크 복사</button>
       </div>
-      <button class="retry-btn" onclick="retryTest()" style="width: 100%; padding: 14px; background: transparent; border: 3px dashed #000; font-family: var(--fko); cursor: pointer;">↩ 처음으로 돌아가기</button>
+      <button class="retry-btn" onclick="retryTest()">↩ 처음으로 돌아가기</button>
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script>
     let userName='', currentQ=0, resultType='';
     let scores={F:0,R:0,E:0,I:0,P:0,L:0,C:0,U:0};
     const SHARE_URL='https://byeolgome.github.io/lge_esg_academy/'; 
 
     const questions=[
-      {cat:'상황 판단',text:'과제 작성을 시작할 때, 가장 먼저 하는 행동은?',choices:[{txt:'일단 AI를 켜두고 무엇이든 물어보며 시작한다',score:'F'},{txt:'빈 화면에 내 생각을 먼저 정리하고, 막힐 때 찾는다',score:'R'}]},
-      {cat:'상황 판단',text:'문서나 이메일을 써야 할 때 나의 스타일은?',choices:[{txt:'처음부터 AI에게 초안을 잡아달라고 맡긴다',score:'F'},{txt:'내가 먼저 쓰고, 문맥 다듬을 때만 활용한다',score:'R'}]},
-      {cat:'상황 판단',text:'간단한 개념이 궁금해졌을 때?',choices:[{txt:'대화형 AI에게 물어보고 맥락까지 설명해달라고 한다',score:'F'},{txt:'가벼운 정보는 그냥 구글링 등으로 빠르게 찾는다',score:'R'}]},
+      {cat:'상황 판단',text:'과제나 기획안 작성을 시작할 때, 가장 먼저 하는 행동은?',choices:[{txt:'일단 AI(ChatGPT 등)를 켜두고 무엇이든 물어보며 시작한다',score:'F'},{txt:'빈 화면에 내 생각을 먼저 정리하고, 막힐 때 AI를 찾는다',score:'R'}]},
+      {cat:'상황 판단',text:'문서나 이메일을 작성해야 할 때 나의 스타일은?',choices:[{txt:'처음부터 AI에게 초안을 잡아달라고 맡기는 편이다',score:'F'},{txt:'내가 먼저 쓰고, 문맥을 다듬을 때만 AI를 활용한다',score:'R'}]},
+      {cat:'상황 판단',text:'간단한 개념이나 단어의 뜻이 궁금해졌을 때?',choices:[{txt:'대화형 AI에게 물어보고 맥락까지 설명해달라고 한다',score:'F'},{txt:'가벼운 정보는 그냥 구글링이나 포털 검색으로 빠르게 찾는다',score:'R'}]},
       {cat:'상황 판단',text:'오늘 하루 동안 AI 서비스를 켠 횟수는?',choices:[{txt:'셀 수 없다. 수시로 탭을 왔다 갔다 하며 사용했다',score:'F'},{txt:'필요할 때 한두 번 정도 몰아서 접속했다',score:'R'}]},
-      {cat:'상황 판단',text:'아이디어가 필요할 때 나는?',choices:[{txt:'AI에게 여러 키워드를 던져주고 아이디어를 내보라고 한다',score:'F'},{txt:'혼자 먼저 고민해보고, 정 안 풀릴 때 힌트를 얻는다',score:'R'}]},
-      {cat:'행동 방식',text:'AI에게 무언가를 부탁할 때 첫 질문의 형태는?',choices:[{txt:'배경, 조건 등을 꼼꼼히 적어서 한 번에 준다',score:'E'},{txt:'일단 핵심만 짧게 던지고 대화하며 맞춰간다',score:'I'}]},
-      {cat:'행동 방식',text:'AI가 엉뚱한 대답을 내놓았을 때 나의 대처법은?',choices:[{txt:'질문을 구체적으로 수정해서 다시 보낸다',score:'E'},{txt:'"아니 그거 말고"라며 대화로 계속 맞춰간다',score:'I'}]},
-      {cat:'행동 방식',text:'원하는 결과를 얻기까지 AI와 대화하는 횟수는?',choices:[{txt:'보통 1~2번의 질문 안에 완벽한 답변을 얻는다',score:'E'},{txt:'여러 번 핑퐁을 해야 겨우 쓸만한 게 나온다',score:'I'}]},
-      {cat:'행동 방식',text:'자주 쓰는 질문이나 보고서 양식이 있다면?',choices:[{txt:'프롬프트 템플릿을 저장해두고 효율적으로 쓴다',score:'E'},{txt:'매번 그때그때 생각나는 대로 타이핑한다',score:'I'}]},
-      {cat:'행동 방식',text:'AI 답변이 너무 장황하게 나왔을 때 나는?',choices:[{txt:'다음부턴 요약 제약 등을 미리 건다',score:'E'},{txt:'일단 받은 뒤에 "짧게 줄여줘"라고 다시 시킨다',score:'I'}]},
-      {cat:'작업 스타일',text:'AI에게 주로 시키는 업무의 스케일은?',choices:[{txt:'데이터 분석, 전체 기획 등 묵직한 작업',score:'P'},{txt:'맞춤법 검사, 단순 요약 등 가벼운 작업',score:'L'}]},
-      {cat:'작업 스타일',text:'방대한 양의 문서를 분석해야 할 때?',choices:[{txt:'문서를 통째로 업로드하고 요약해달라고 한다',score:'P'},{txt:'내가 훑어본 뒤 특정 문단만 물어본다',score:'L'}]},
-      {cat:'작업 스타일',text:'이미지나 영상 등 시각 자료가 필요할 때?',choices:[{txt:'생성형 AI를 적극 활용해 만들어낸다',score:'P'},{txt:'무료 이미지 사이트 검색 등으로 대체한다',score:'L'}]},
-      {cat:'작업 스타일',text:'AI가 만든 결과물을 활용하는 방식은?',choices:[{txt:'AI가 만든 결과물을 거의 그대로 적용한다',score:'P'},{txt:'뼈대만 참고하고 최종 완성은 내 손으로 한다',score:'L'}]},
-      {cat:'작업 스타일',text:'내가 생각하는 AI의 역할에 더 가까운 것은?',choices:[{txt:'내 일을 대신 처리해 주는 든든한 실무 파트너',score:'P'},{txt:'막힌 길의 방향만 살짝 알려주는 나침반',score:'L'}]},
-      {cat:'가치관',text:'AI 질문에 엄청난 자원이 쓰인다는 기사를 봤다면?',choices:[{txt:'"불필요한 핑퐁을 많이 하나?" 돌아본다',score:'C'},{txt:'"기술이 해결하겠지" 하며 넘긴다',score:'U'}]},
-      {cat:'가치관',text:'이미 해결된 질문 창을 대하는 태도는?',choices:[{txt:'서버 부하를 생각해 창을 닫거나 신중해진다',score:'C'},{txt:'켜둔 채로 나중에 아무 말이나 던져본다',score:'U'}]},
-      {cat:'가치관',text:'가벼운 모델과 고성능 모델을 고를 수 있다면?',choices:[{txt:'단순 작업은 자원 소모가 적은 가벼운 모델을 쓴다',score:'C'},{txt:'무조건 가장 똑똑한 최신 고성능 모델만 쓴다',score:'U'}]},
-      {cat:'가치관',text:'AI 유머 밈 생성 등 가벼운 유행이 돌 때?',choices:[{txt:'자원 소모가 살짝 스친다',score:'C'},{txt:'재밌으면 망설임 없이 다 해본다',score:'U'}]},
-      {cat:'가치관',text:'나의 습관이 탄소 배출과 연결된다는 걸 알았다.',choices:[{txt:'효율적으로 고칠 의향이 있다',score:'C'},{txt:'하던 대로 쓸 것 같다',score:'U'}]}
+      {cat:'상황 판단',text:'번뜩이는 아이디어가 필요할 때 나는?',choices:[{txt:'AI에게 여러 가지 키워드를 던져주고 아이디어를 내보라고 한다',score:'F'},{txt:'혼자 먼저 고민해보고, 정 안 풀릴 때 AI에게 힌트를 얻는다',score:'R'}]},
+      {cat:'행동 방식',text:'AI에게 무언가를 부탁할 때 첫 질문(프롬프트)의 형태는?',choices:[{txt:'배경, 조건, 원하는 형식을 꼼꼼히 적어서 한 번에 준다',score:'E'},{txt:'일단 핵심만 짧게 던지고, 답변을 보면서 추가로 요구한다',score:'I'}]},
+      {cat:'행동 방식',text:'AI가 엉뚱한 대답을 내놓았을 때 나의 대처법은?',choices:[{txt:'질문이 명확하지 않았다고 생각하고 프롬프트를 구체적으로 수정한다',score:'E'},{txt:'"아니 그거 말고", "다시 해봐"라며 대화로 계속 맞춰간다',score:'I'}]},
+      {cat:'행동 방식',text:'원하는 결과물을 얻기까지 AI와 대화하는 횟수는?',choices:[{txt:'보통 1~2번의 질문 안에 원하는 완벽한 답변을 얻어낸다',score:'E'},{txt:'여러 번 티키타카(핑퐁)를 해야 겨우 쓸만한 게 나온다',score:'I'}]},
+      {cat:'행동 방식',text:'자주 쓰는 질문이나 보고서 양식이 있다면?',choices:[{txt:'따로 프롬프트 템플릿을 저장해두고 복붙해서 효율적으로 쓴다',score:'E'},{txt:'매번 그때그때 생각나는 대로 타이핑해서 묻는다',score:'I'}]},
+      {cat:'행동 방식',text:'AI의 답변이 너무 길고 장황하게 나왔을 때 나는?',choices:[{txt:'다음부턴 "3줄로 요약해" 등 제약을 미리 건다',score:'E'},{txt:'일단 받은 뒤에 "너무 길어, 짧게 줄여줘"라고 시킨다',score:'I'}]},
+      {cat:'작업 스타일',text:'AI에게 주로 시키는 업무의 스케일은?',choices:[{txt:'데이터 분석, 코드 작성, 전체 기획 등 묵직한 작업',score:'P'},{txt:'맞춤법 검사, 짧은 번역, 단순 개념 요약 등 가벼운 작업',score:'L'}]},
+      {cat:'작업 스타일',text:'방대한 양의 PDF나 문서를 분석해야 할 때?',choices:[{txt:'문서를 통째로 업로드하고 전체를 요약해달라고 한다',score:'P'},{txt:'내가 훑어본 뒤, 이해 안 가는 문단만 복사해서 묻는다',score:'L'}]},
+      {cat:'작업 스타일',text:'이미지나 영상 등 시각 자료가 필요할 때?',choices:[{txt:'생성형 AI를 적극적으로 활용해 고퀄리티로 만들어낸다',score:'P'},{txt:'무료 이미지 사이트에서 찾거나 텍스트 위주로 한다',score:'L'}]},
+      {cat:'작업 스타일',text:'AI가 만들어낸 결과물을 활용하는 방식은?',choices:[{txt:'AI가 만든 결과물을 거의 그대로 실무나 과제에 적용한다',score:'P'},{txt:'AI 답변은 뼈대일 뿐, 최종 완성은 내 손으로 한다',score:'L'}]},
+      {cat:'작업 스타일',text:'내가 생각하는 AI의 역할에 더 가까운 것은?',choices:[{txt:'내 일을 대신 처리해 주는 든든한 고성능 파트너',score:'P'},{txt:'막힌 길의 방향만 살짝 알려주는 가벼운 나침반',score:'L'}]},
+      {cat:'가치관',text:'생성형 AI 질문에 엄청난 전력과 물이 쓰인다는 기사를 봤다면?',choices:[{txt:'"내가 핑퐁을 너무 많이 하진 않나?" 한 번쯤 돌아본다',score:'C'},{txt:'"기술이 발전하면 알아서 해결되겠지" 하며 넘긴다',score:'U'}]},
+      {cat:'가치관',text:'이미 해결된 질문 창(채팅방)을 대하는 태도는?',choices:[{txt:'서버 부하를 생각해 창을 닫거나, 신중하게 질문한다',score:'C'},{txt:'켜둔 채로 나중에 생각나면 아무 말이나 또 던져본다',score:'U'}]},
+      {cat:'가치관',text:'가벼운 모델(3.5)과 무거운 모델(4.0)을 고를 수 있다면?',choices:[{txt:'단순 번역/요약은 자원 소모가 적은 가벼운 모델을 쓴다',score:'C'},{txt:'무조건 가장 성능이 좋고 똑똑한 최신 무거운 모델을 쓴다',score:'U'}]},
+      {cat:'가치관',text:'AI 프로필 사진 만들기 등 가벼운 유행이 돌 때?',choices:[{txt:'해보긴 하지만, 데이터센터 자원 소모가 살짝 스친다',score:'C'},{txt:'재밌어 보이는 건 망설임 없이 서버 상관없이 다 해본다',score:'U'}]},
+      {cat:'가치관',text:'나의 프롬프트 습관이 탄소 배출과 연결된다는 걸 알았다.',choices:[{txt:'불필요한 재질문을 줄이는 등 효율적으로 고칠 의향이 있다',score:'C'},{txt:'내가 조금 바꾼다고 크게 달라질까 싶어 하던 대로 쓴다',score:'U'}]}
     ];
 
     const resultData={
-      FEPC:{title:'그린 파워유저',emoji:'🌿', analogy:'AI를 오차 없이 능숙하게 다룹니다.', pattern:'질문이 완벽해 서버 공회전을 막는 이상적인 패턴.', punch:'능력과 환경 감수성을 갖춘 실력자 👏', impact:'아주 낮음 🌱', water:'하루 물 1컵 소모', drops:2, tips:['완벽한 프롬프트 능력이 에너지를 아낍니다.','가끔은 디지털 디톡스를 해보세요.','저탄소 질문법을 팀원들에게 공유해주세요!'], closing:'지구를 위한 최고의 에코 마스터 🌍', color:'#0f5c35'},
-      FIPU:{title:'AI 과소비러',emoji:'🚨', analogy:'한겨울에 보일러와 에어컨을 같이 켭니다.', pattern:'무의식, 잦음, 비효율. 자원 낭비 4관왕.', punch:'북극곰에게 10초간 묵념하세요 🚨', impact:'아주 높음 🔥🔥', water:'하루 생수 4~5병 소모', drops:10, tips:['질문 횟수를 스스로 제한해보세요.','엔터 키의 무게를 느껴보세요.','빙하가 냉각수로 다 녹아버릴 거예요!'], closing:'프롬프트 다이어트를 시작하세요 🌱', color:'#c0392b'},
-      RILU:{title:'디지털 자연인',emoji:'🌲', analogy:'아날로그의 가치를 더 잘 아는 사람입니다.', pattern:'탄소 배출량 0에 수렴하는 궁극의 친환경 패턴!', punch:'지구를 앞장서서 지키고 있는 겁니다 🌲', impact:'완벽 (무해) 🌱🌱🌱', water:'물 소비 0! 북극곰의 기립박수', drops:0, tips:['아날로그의 힘을 굳게 믿으세요.','나중에 꼭 필요할 땐 한 번에 묻는 연습을 해보세요.','이대로의 삶을 즐기세요!'], closing:'북극곰의 영원한 깐부 🐻‍❄️', color:'#1e8a52'}
-      // (나머지 유형 데이터는 동일한 방식으로 이어서 채워주시면 됩니다)
+      FEPC:{title:'그린 파워유저',emoji:'🌿', analogy:'AI를 단 한 번의 오차 없이 능숙하게 다룹니다.', pattern:'자주 쓰지만 첫 질문이 완벽해 불필요한 서버 공회전을 막는 이상적인 패턴.', punch:'능력과 환경 감수성을 모두 갖춘 진짜 실력자 👏', impact:'아주 낮음 🌱', water:'하루 물 1컵(200ml) 소모', drops:2, tips:['지금의 완벽한 프롬프트 설계 능력이 서버 에너지를 아낍니다.','가끔은 디지털 디톡스를 하며 AI 서버도, 내 머리도 쉬게 해주세요.','이 훌륭한 저탄소 질문법을 주변 팀원들에게도 공유해주세요!'], closing:'AI와 지구 모두를 위한 최고의 에코 마스터 🌍', shareMsg:'나 그린 파워유저 나옴🌿 탄소 안 나오는 갓벽한 질문러래'},
+      FELC:{title:'스마트 실속러',emoji:'🍀', analogy:'꼭 필요한 핵심만 AI에게 묻고 빠집니다.', pattern:'자주 쓰지만 가벼운 작업 위주라 데이터센터에 열을 가하지 않아요.', punch:'불필요한 핑퐁이 없는 가성비 최고 유저 ✨', impact:'낮음 🌱', water:'하루 물 반 컵 소모', drops:1, tips:['자주 쓰는 질문은 템플릿으로 저장해두면 타이핑과 서버 에너지를 동시에 아껴요.','AI에게 안 물어봐도 되는 단순 검색은 직접 찾아보는 습관을 길러보세요.','지금처럼 명확하고 짧게 요청하는 에코 습관을 잃지 마세요.'], closing:'영리하고 가볍게, 지구에 흔적을 덜 남기네요 ✨', shareMsg:'나 스마트 실속러 나옴ㅋㅋ 친환경 센스 미쳤고'},
+      REPC:{title:'전략적 고수',emoji:'🦅', analogy:'AI를 저격수처럼 꼭 필요할 때만 치명적으로 사용합니다.', pattern:'안 쓰다가 쓸 때만 깊고 정확하게 묻는 최고 효율의 저탄소 패턴.', punch:'이정도면 솔직히 상위 1% 에코 유저 🏆', impact:'매우 낮음 🌱🌱', water:'하루 몇 모금 수준 소모', drops:1, tips:['한 번에 완벽한 결과를 내는 당신, 진정한 디지털 스나이퍼입니다.','무거운 작업을 시킬 땐 지금처럼 단계별 지시를 해 오류(재질문)를 막아주세요.','당신의 적게 쓰고 크게 얻는 철학을 주변에 널리 전파해 주세요.'], closing:'적게 쓰고 많이 얻는, 지구가 환영하는 고수 🏆', shareMsg:'나 전략적 고수래ㄷㄷ 효율 폼 미쳤다'},
+      RELC:{title:'미니멀 유저',emoji:'🌾', analogy:'AI라는 비상구를 정말 급할 때만 엽니다.', pattern:'무분별한 유행에 휩쓸리지 않고 내 힘으로 해결하는 진정한 친환경 패턴.', punch:'지구가 가장 사랑하는 디지털 미니멀리스트 🌍', impact:'최저 🌱🌱🌱', water:'거의 물 한 방울 수준', drops:1, tips:['꼭 필요할 때만 쓰는 당신의 절제력이 지구의 온도를 낮추고 있어요.','앞으로도 굳이 안 써도 되는 순간엔 지금처럼 뚝심 있게 내 머리를 믿어보세요.','친환경 디지털 생활의 모범 뱃지를 달아드릴게요!'], closing:'디지털 탄소 발자국 제로에 도전하는 유저 💚', shareMsg:'나 미니멀 유저 나옴🌾 북극곰이 나 좋아할듯'},
+      FEPU:{title:'고성능 무관심형',emoji:'⚡', analogy:'연비 나쁜 스포츠카처럼 빵빵 밟으며 AI를 굴립니다.', pattern:'능률은 엄청 좋지만, 뒤에서 서버가 불타는 건 신경 안 쓰는 패턴.', punch:'업무 능력은 A+인데 환경 점수는 C 🫤', impact:'높음 🔥', water:'하루 생수 1~2병(1L) 소모', drops:6, tips:['질문 전 이게 꼭 AI 서버를 돌릴 만큼 중요한가? 3초만 고민하세요.','가벼운 텍스트 요약은 무거운 최신 모델 대신 가벼운 모델을 선택해 보세요.','이미 일은 잘하시니, 에너지 소모에 대한 인식 한 스푼만 더하면 완벽해요.'], closing:'환경 의식만 장착하면 완벽해질 거예요 🌿', shareMsg:'능력은 높은데 환경은 무관심하대ㅋㅋ 반성한다'},
+      FELU:{title:'편한 게 최고형',emoji:'😎', analogy:'가까운 거리도 배달앱을 켜듯 편할 때마다 툭툭 씁니다.', pattern:'효율적이긴 한데, 너무 사소한 것까지 물어봐서 가랑비에 옷 젖듯 에너지를 씁니다.', punch:'나만 편하면 끝? 데이터센터도 쉴 틈이 필요해요 🌏', impact:'보통 ⚖️', water:'하루 물 2~3컵 소모', drops:3, tips:['검색창에 치면 10초면 나오는 정보는 AI 대신 직접 찾아보세요.','나의 의미 없는 엔터 키 한 번에 서버 냉각수가 돌아간다는 걸 기억해 주세요.','편리함과 환경 보호 사이의 균형을 조금씩 맞춰보는 건 어떨까요?'], closing:'가끔은 아날로그 방식이 지구를 웃게 합니다 🌏', shareMsg:'나 편한 게 최고형 나옴ㅋㅋ 사소한거 묻기 달인'},
+      REPU:{title:'가끔 쓰는 고사양러',emoji:'🔩', analogy:'가끔 운전대 잡으면 대형 덤프트럭을 몰고 나갑니다.', pattern:'평소엔 안 쓰다가 한 번 켤 때 엄청 무거운 작업을 던져 과부하를 줍니다.', punch:'자주 안 쓰는 건 고마운데, 한 번 쓸 때 훅 들어오시네요 🏋️', impact:'보통 ⚖️', water:'하루 물 2~3컵 소모', drops:3, tips:['무거운 요청을 던질 땐, AI가 헤매지 않도록 조건을 아주 뾰족하게 깎아주세요.','복잡한 일은 여러 단계로 쪼개서 질문해야 쓸데없는 재작업(에너지 낭비)을 막아요.','작업이 끝났다면 켜둔 AI 채팅창 탭을 깔끔하게 꺼주세요.'], closing:'안 쓰는 빈 방의 불은 끄는 것처럼, 스마트하게 끄고 켜주세요 💡', shareMsg:'나 가끔 쓰는 고사양러ㄷㄷ 뽕뽑는 스타일'},
+      RELU:{title:'라이트 유저',emoji:'🌤️', analogy:'가끔 꺼내 보는 영어 사전처럼 아주 가볍게 대합니다.', pattern:'일상에서 꼭 필요할 때만, 서버에 무리 안 가게 쓰는 평화로운 패턴.', punch:'이 결과 보고 "나 꽤 괜찮은데?" 하고 있죠? 네, 훌륭해요 ☀️', impact:'낮음 🌱', water:'하루 물 반 컵 소모', drops:1, tips:['질문할 때 배경 설명(맥락)을 조금 더 주면, AI가 한 번에 정답을 맞혀 핑퐁이 줄어듭니다.','지금처럼 일상에서 AI를 과도하게 남용하지 않는 태도가 환경엔 최고입니다.','내가 주고받는 텍스트 몇 줄도 모이면 결국 탄소 발자국이 된다는 걸 잊지 마세요.'], closing:'평화롭고 여유롭게, 지구에 무해한 유저 ☀️', shareMsg:'나 라이트 유저 나옴ㅋㅋ 난 꽤 친환경적인듯'},
+      FIPC:{title:'과몰입 핑퐁러',emoji:'🌀', analogy:'AI랑 밤새 스무고개 하면서 기싸움을 합니다.', pattern:'열정은 넘치는데 질문이 꼬여서 원하는 답이 나올 때까지 무한 재질문(자원 낭비)을 합니다.', punch:'AI 멱살 잡고 흔들 때마다 서버 온도가 1도씩 올라가요 😅', impact:'높음 🔥', water:'하루 생수 2~3병(1.5L) 소모', drops:8, tips:['엔터 키를 누르기 전에 30초만 내가 원하는 결과를 텍스트로 정리해 보세요.','꼬리에 꼬리를 무는 질문 10개보다, 조건을 꽉 채운 프롬프트 1개가 에너지를 훨씬 아낍니다.','유튜브에서 "프롬프트 작성법"을 딱 10분만 시청하면 헛된 공회전을 막을 수 있어요.'], closing:'의도는 좋으나, 한 번에 명중시키는 법을 배워봐요 🧭', shareMsg:'나 과몰입 핑퐁러 나옴ㅋㅋㅋ 스무고개 ㅇㅈ'},
+      FILC:{title:'습관적 클릭커',emoji:'🔁', analogy:'엘리베이터 닫힘 버튼 누르듯 AI 엔터 키를 연타합니다.', pattern:'"아 맞다", "그리고 이것도"라며 질문을 잘게 쪼개서 끊임없이 서버를 호출합니다.', punch:'한 번에 모아서 물어봐도 AI는 찰떡같이 알아듣는답니다 🔁', impact:'보통~높음 🔥', water:'하루 물 3~4컵 소모', drops:4, tips:['자잘한 질문 3개를 생각나는 대로 치지 말고, 하나의 문장으로 묶어 1번만 물어보세요.','엔터 누르기 전, 내가 이 질문을 AI에게 굳이 해야 하는지 한 번 더 멈칫해 보세요.','나의 습관적인 재질문 1번이 냉각수를 계속 증발시키고 있습니다.'], closing:'질문을 하나로 뭉치는 습관이 지구를 식힙니다 🔄', shareMsg:'나 습관적 클릭커 나옴ㅋㅋ 맨날 쪼개서 물어봄'},
+      RIPC:{title:'헛수고 장인',emoji:'🎯', analogy:'목적지 안 찍고 네비 켜서 매번 길을 잃습니다.', pattern:'자주 안 쓰는데, 어쩌다 켤 때마다 소통 오류가 나서 땀 뻘뻘 흘리며 자원을 낭비합니다.', punch:'답답해서 육성으로 한숨 쉰 적 있죠? AI도 서버에서 한숨 쉬고 있어요 😓', impact:'보통 ⚖️', water:'하루 물 3~4컵 소모', drops:4, tips:['AI에게 너는 10년 차 마케터야 처럼 역할을 주면, 헛소리를 훨씬 덜 합니다.','복잡한 일을 시킬 때는 내가 만든 예시를 먼저 던져줘서 오류 확률을 낮추세요.','잘 짜인 단 한 번의 질문이, 짜증과 탄소 배출을 동시에 막아줍니다.'], closing:'적게 쓰는 건 칭찬해요. 이제 그 한 번을 명중시켜 봅시다! 🏹', shareMsg:'나 헛수고 장인ㅋㅋㅋ AI랑 소통 불가ㅠ'},
+      RILC:{title:'비효율 미니멀리스트',emoji:'🌵', analogy:'최신 스마트폰 사놓고 기본 전화 어플만 씁니다.', pattern:'안 그래도 안 쓰는데, 쓸 때도 뭉툭하게 물어봐서 허공에 삽질(데이터 소모)을 합니다.', punch:'AI 안 쓰는 건 환경에 참 좋은데, 쓸 때 너무 헤매시네요 🌵', impact:'낮음 🌱', water:'하루 물 1컵 소모', drops:2, tips:['남들이 짜둔 잘 된 프롬프트 예시를 복사해서 쓰면, 헛된 데이터 소모를 막을 수 있어요.','AI가 헛소리를 한다면 질문에 육하원칙만 살짝 섞어보세요. 단번에 맞힐 겁니다.','안 그래도 적게 쓰는데 효율성까지 갖추면 완벽한 에코 유저가 됩니다.'], closing:'지구에는 참 착한 사용자. 가끔 쓸 땐 확실하게! 🌵', shareMsg:'나 비효율 미니멀리스트 나옴ㅋㅋ 컴맹 인증이냐'},
+      FIPU:{title:'AI 과소비러',emoji:'🚨', analogy:'한겨울에 보일러 빵빵하게 틀고 에어컨도 같이 켭니다.', pattern:'무의식적으로, 너무 자주, 묵직하게, 비효율적으로. 자원 낭비 4관왕입니다.', punch:'이거 나온 분은 북극곰한테 10초간 묵념하셔야 합니다 🚨', impact:'아주 높음 🔥🔥', water:'하루 생수 4~5병(2L 이상) 소모', drops:10, tips:['오늘부터 내 하루 AI 질문 횟수는 5번뿐이라고 스스로 제한 퀘스트를 걸어보세요.','질문 한 번에 생수 한 통이 날아간다고 상상하고 엔터 키의 무게를 느껴보세요.','이대로 가다간 북극곰이 앉을 빙하가 AI 서버 냉각수로 다 녹아버릴 거예요!'], closing:'위기 의식을 가지고 지금 당장 프롬프트 다이어트를 시작하세요 🌱', shareMsg:'과소비러 나옴 미쳤다 북극곰 미안하다ㅠㅠ'},
+      FILU:{title:'무지성 핑퐁러',emoji:'💨', analogy:'아무 목적 없이 심심이 어플 건드리듯 AI를 쿡쿡 찌릅니다.', pattern:'진지한 고민 없이 영양가 없는 질문을 툭툭 던지며 서버를 쓸데없이 괴롭힙니다.', punch:'채팅창 스크롤 올려보세요. 진짜 쓸데없는 말만 잔뜩 있죠? 👀', impact:'높음 🔥', water:'하루 생수 1~2병 소모', drops:6, tips:['질문하기 전에 내가 이걸 지금 굳이 묻고 있나? 3초만 필터링하세요.','이전 답변의 맥락을 이어서 질문해야, AI가 처음부터 다시 계산하는 에너지를 아낍니다.','의미 없는 킬링타임용 AI 대화는 이제 그만! 내 디지털 탄소 발자국을 돌아보세요.'], closing:'목적이 이끄는 질문만 하는 습관을 들여보세요 💡', shareMsg:'나 무지성 핑퐁러래 뼈 맞음ㅋㅋ 아무말 대잔치'},
+      RIPU:{title:'비효율 고비용러',emoji:'💸', analogy:'뻥 뚫린 고속도로 놔두고 구태여 산길로 오프로드 뜁니다.', pattern:'가끔 쓰는데, 한 번 쓸 때 엄청 무거운 작업을 비효율적으로 지시해 랙(Lag)을 유발합니다.', punch:'가끔 켤 거면 제발 한 번에 깔끔하게 끝냅시다! 서버 터져요 💸', impact:'보통 ⚖️', water:'하루 생수 1병 소모', drops:5, tips:['무거운 데이터 작업 전에는 종이에 먼저 구조를 그려보고 확실할 때만 질문하세요.','다양한 툴을 건드리기보단, 하나만 깊게 파서 불필요한 요청을 줄이세요.','서버가 처리할 시간을 좀 줍시다. 안 나온다고 똑같은 질문 연타하지 마세요!'], closing:'가끔 쓰는 김에 효율성까지 장착해 서버를 아껴주세요 🔧', shareMsg:'나 비효율 고비용러 나옴ㅋㅋ 억울하다 진짜'},
+      RILU:{title:'디지털 자연인',emoji:'🌲', analogy:'최신 AI 트렌드보다 아날로그의 가치를 더 잘 아는 사람입니다.', pattern:'AI를 거의 안 씁니다. 의도했든 아니든 탄소 배출량 0에 수렴하는 궁극의 친환경 패턴!', punch:'트렌드에 뒤처진 게 아닙니다. 지구를 가장 앞장서서 지키고 있는 겁니다 🌲', impact:'매우 낮음 (완벽) 🌱🌱🌱', water:'물 소비 0! 북극곰의 기립박수 👏', drops:0, tips:['지금처럼 내 머리와 손을 직접 쓰는 아날로그의 힘을 굳게 믿으세요.','나중에 AI가 꼭 필요한 순간이 온다면, 헤매지 않고 딱 한 번만 묻는 연습을 해보세요.','지구에는 가장 무해하고 완벽한 유저이니, 죄책감 없이 이대로의 삶을 즐기세요!'], closing:'디지털 탄소 발자국 제로! 북극곰의 영원한 깐부 🐻‍❄️', shareMsg:'나 디지털 자연인 나옴ㅋㅋ 완전 북극곰 깐부잖아'}
     };
 
+    // 입력창 제어 (엔터치면 넘어감)
+    document.getElementById('nameInput').addEventListener('input', function() {
+      document.getElementById('startBtn').disabled = this.value.trim().length === 0;
+    });
+    document.getElementById('nameInput').addEventListener('keydown', function(e) {
+      if(e.key === 'Enter' && this.value.trim().length > 0) startTest();
+    });
+
+    // 화면 전환
+    function showScreen(id){
+      document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    // 테스트 시작
     function startTest(){
       userName = document.getElementById('nameInput').value.trim();
+      scores = {F:0,R:0,E:0,I:0,P:0,L:0,C:0,U:0};
+      currentQ = 0;
       showScreen('screen-test');
       renderQ();
     }
 
+    // 질문 렌더링
     function renderQ(){
       const q = questions[currentQ];
-      document.getElementById('pbarFill').style.width = Math.round((currentQ/questions.length)*100) + '%';
+      const pct = Math.round((currentQ/questions.length)*100) + 2;
+      document.getElementById('progressCat').textContent = q.cat;
+      document.getElementById('progressNum').textContent = `${currentQ+1} / ${questions.length}`;
+      document.getElementById('pbarFill').style.width = pct + '%';
+      document.getElementById('qNum').textContent = `Q ${String(currentQ+1).padStart(2,'0')}`;
       document.getElementById('qText').textContent = q.text;
       document.getElementById('choiceATxt').textContent = q.choices[0].txt;
       document.getElementById('choiceBTxt').textContent = q.choices[1].txt;
+      
+      const a = document.getElementById('choiceA'), b = document.getElementById('choiceB');
+      a.classList.remove('selected'); b.classList.remove('selected');
+      a.disabled = false; b.disabled = false;
     }
 
+    // 선택지 클릭
     function selectChoice(idx){
-      scores[questions[currentQ].choices[idx].score]++;
-      currentQ++;
-      if(currentQ < questions.length) renderQ();
-      else { showScreen('screen-loading'); setTimeout(showResult, 1800); }
+      const q = questions[currentQ];
+      const a = document.getElementById('choiceA'), b = document.getElementById('choiceB');
+      if(idx === 0) a.classList.add('selected'); else b.classList.add('selected');
+      a.disabled = true; b.disabled = true;
+      scores[q.choices[idx].score]++;
+      
+      setTimeout(() => {
+        currentQ++;
+        if(currentQ < questions.length){
+          renderQ();
+        } else {
+          document.getElementById('pbarFill').style.width = '100%';
+          setTimeout(() => { showScreen('screen-loading'); setTimeout(showResult, 1800); }, 300);
+        }
+      }, 350);
     }
 
+    // 결과 표시
     function showResult(){
       resultType = (scores.F>=scores.R?'F':'R')+(scores.E>=scores.I?'E':'I')+(scores.P>=scores.L?'P':'L')+(scores.C>=scores.U?'C':'U');
-      const d = resultData[resultType] || resultData.FEPC; // 폴백
+      const d = resultData[resultType];
       
-      document.getElementById('screen-result').style.backgroundColor = d.color;
-      document.getElementById('rRobotIllustration').innerHTML = `<div class="robot-char"><div class="robot-face"><div class="robot-eye"></div></div><div class="robot-logo">LG ESG<br>Genius</div></div>`;
+      const resultScreen = document.getElementById('screen-result');
+      resultScreen.className = `screen screen-result ${resultType.toLowerCase()}-result`;
+      
+      let robotHTML = `
+        <div class="robot-char result-robot ${resultType.toLowerCase()}">
+          <div class="robot-antenna"></div>
+          <div class="robot-face"><div class="robot-eye"></div><div class="robot-eye"></div></div>
+          <div class="robot-logo">LG ESG<br>Genius</div>
+        </div>
+      `;
+      document.getElementById('rRobotIllustration').innerHTML = robotHTML;
+      
       document.getElementById('rTypeCode').textContent = resultType;
       document.getElementById('rTypeName').textContent = `${d.emoji} ${d.title}`;
       document.getElementById('rGreet').textContent = `${userName}님의 AI 활용 유형`;
@@ -276,22 +387,66 @@
       document.getElementById('rPattern').textContent = d.pattern;
       document.getElementById('rPunch').textContent = `"${d.punch}"`;
       document.getElementById('rImpact').textContent = d.impact;
-      document.getElementById('rWater').innerHTML = `당신의 습관은 <strong>${d.water}</strong> 수준입니다.`;
-      
-      let drops = ''; for(let i=0; i<10; i++) drops += (i < d.drops) ? '💧' : '🩶';
-      document.getElementById('rDropBar').innerHTML = drops;
-      
-      let tips = ''; d.tips.forEach((t, i) => tips += `<li><span class="tn">${i+1}</span><span>${t}</span></li>`);
-      document.getElementById('rTips').innerHTML = tips;
+      document.getElementById('rWater').innerHTML = `AI 요청 처리 시 엄청난 전력과 수자원이 소모됨을 아시나요?<br>당신의 습관은 <strong>${d.water}</strong> 수준입니다.`;
       document.getElementById('rClosing').textContent = d.closing;
+
+      let dropsHTML = '';
+      for(let i=0; i<10; i++) dropsHTML += (i < d.drops) ? '💧' : '<span style="opacity:0.2">💧</span>';
+      document.getElementById('rDropBar').innerHTML = dropsHTML;
+
+      let tipsHTML = '';
+      d.tips.forEach((t, i) => {
+        tipsHTML += `<li><span class="tn">${i+1}</span><span>${t}</span></li>`;
+      });
+      document.getElementById('rTips').innerHTML = tipsHTML;
+
       showScreen('screen-result');
     }
 
-    function showScreen(id){ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
-    async function saveImage(){ showToast('📸 이미지 생성 중...'); const el = document.getElementById('result-capture'); const canvas = await html2canvas(el, {scale: 2, useCORS: true}); const link = document.createElement('a'); link.download = `지니어스_결과.png`; link.href = canvas.toDataURL(); link.click(); }
-    function copyLink(){ navigator.clipboard.writeText(`나의 AI 유형은? ${SHARE_URL}`); showToast('🔗 링크가 복사됐어요!'); }
-    function showToast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'), 2000); }
-    function retryTest(){ location.reload(); }
+    // 이미지 저장 (캡처)
+    async function saveImage(){
+      showToast('📸 이미지 생성 중...');
+      try {
+        const el = document.getElementById('result-capture');
+        const canvas = await html2canvas(el, {scale: 2, useCORS: true, backgroundColor: '#ffffff'});
+        const link = document.createElement('a');
+        link.download = `지니어스_AI테스트_${resultType}_${userName}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('✅ 이미지가 저장됐어요!');
+      } catch(e) {
+        showToast('❌ 저장 실패. 다시 시도해보세요.');
+      }
+    }
+
+    // 공유 기능
+    function shareKakao(){ copyLink(true); }
+    function shareInsta(){ saveImage(); }
+    function copyLink(isKakao = false){
+      const msg = `${resultData[resultType].shareMsg}\n\n👉 테스트 해보기: ${SHARE_URL}`;
+      if(navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(msg);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = msg; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        try { document.execCommand('copy'); } catch(e){}
+        document.body.removeChild(ta);
+      }
+      showToast(isKakao ? '💬 카카오 공유 문구가 복사됐어요!' : '🔗 링크가 복사됐어요!');
+    }
+
+    function showToast(msg){
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2600);
+    }
+
+    function retryTest(){
+      document.getElementById('nameInput').value = '';
+      document.getElementById('startBtn').disabled = true;
+      showScreen('screen-start');
+    }
   </script>
 </body>
 </html>
