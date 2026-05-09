@@ -165,6 +165,55 @@
     .result-robot.rilu .robot-eye { background: var(--win-border); }
     .result-robot.rilu .robot-mouth { background: var(--win-border); width: 20px; border-radius: 10px;}
     .result-robot.rilu .robot-logo { color: var(--g1); font-weight: bold; }
+
+    /* 👇👇👇 여기서부터 복사해서 붙여넣으세요 👇👇👇 */
+    /* ── 오프라인 부스 홍보 배너 스타일 ── */
+    .booth-promo-box {
+      border: 3px solid var(--win-border); 
+      border-radius: 8px; 
+      padding: 16px; 
+      margin-bottom: 16px; 
+      background: #e8f5e9; 
+      text-align: center; 
+      box-shadow: inset 2px 2px 0 rgba(255,255,255,0.7);
+    }
+    .booth-badge { 
+      display: inline-block; 
+      background: var(--win-border); 
+      color: #fff; 
+      font-size: 12px; 
+      padding: 4px 10px; 
+      margin-bottom: 10px; 
+      font-weight: bold; 
+      letter-spacing: 1px;
+    }
+    .booth-title { 
+      font-size: 16px; 
+      font-weight: bold; 
+      color: var(--black); 
+      margin-bottom: 8px; 
+      word-break: keep-all; 
+    }
+    .booth-desc { 
+      font-size: 13px; 
+      color: var(--gray2); 
+      line-height: 1.5; 
+      margin-bottom: 12px; 
+      word-break: keep-all; 
+    }
+    .booth-info { 
+      background: #fff; 
+      border: 2px dashed var(--g2); 
+      border-radius: 6px; 
+      padding: 10px; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 6px; 
+      font-size: 14px; 
+      color: var(--g1); 
+      font-weight: bold; 
+    }
+    /* 👆👆👆 여기까지 👆👆👆 */
   </style>
 </head>
 <body>
@@ -241,6 +290,19 @@
         <div class="sec-title">▶ 개선 팁</div>
         <ul class="tips-list" id="rTips"></ul>
         <div class="closing-box" id="rClosing"></div>
+
+        <!-- 부스 홍보 섹션 시작 -->
+        <div class="booth-promo-box">
+          <div class="booth-badge">OFFLINE INVITATION</div>
+          <div class="booth-title">🌍 '환경을 생각하는 AI 효율적 활용' 부스</div>
+          <div class="booth-desc">결과에 나온 친환경 AI 꿀팁, 오프라인에서 직접 확인해볼까요? 방문하셔서 지속가능한 미래를 함께 만들어주세요!</div>
+          <div class="booth-info">
+            <span>📅 2026. 5. 15(금) 17:00 ~ 20:00</span>
+            <span>📍 신촌 스타광장</span>
+          </div>
+        </div>
+        <!-- 부스 홍보 섹션 끝 -->
+
         <div class="watermark">LG ESG 대학생 아카데미 '지니어스'</div>
       </div>
     </div>
